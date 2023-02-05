@@ -30,9 +30,9 @@ jobs:
             # systemctl stop
             
             # update code
-            ssh-agent bash -c 'ssh-add ~/.ssh/id_rsa_api;
+            # ssh-agent bash -c 'ssh-add ~/.ssh/id_rsa_api;
             
-            git pull'
+            git pull
             # updating the .env file
             cat <<EOF > $API_PATH/.env
             # start of envfile
