@@ -30,7 +30,7 @@ final class YandexForm: Model, Content {
     @Field(key: "ourWokrRead") var ourWokrRead: String
     @Field(key: "reasonTo") var reasonTo: String
     @Field(key: "reasonFrom") var reasonFrom: String
-    @Field(key: "date") var date: Date
+    @Timestamp(key: "created_at", on: .create, format: .iso8601) var date: Date?
 
     @Field(key: "editorTest") var editorTest: String
     @Field(key: "translatorEnTest") var translatorEnTest: String
@@ -62,13 +62,11 @@ final class YandexForm: Model, Content {
         self.translatorJpTest = request.translatorJpTest ?? ""
         self.typesetterTest = request.typesetterTest ?? ""
         self.redrawTest = request.redrawTest ?? ""
-        self.date = request.date
     }
     
 }
 
 struct YandexFormRequest: Content {
-    let date: Date = .now
     let name: String
     let gender: String
     let age: String

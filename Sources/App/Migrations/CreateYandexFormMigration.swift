@@ -13,7 +13,7 @@ struct CreateYandexFormMigration: AsyncMigration {
     func prepare(on database: Database) async throws {
         try await database.schema(YandexForm.schema)
             .id()
-            .field("date", .date, .required)
+            .field("created_at", .string)
             .field("name", .string, .required)
             .field("gender", .string, .required)
             .field("age", .string, .required)
