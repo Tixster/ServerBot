@@ -48,7 +48,7 @@ struct CreateYandexFormMigration2: AsyncMigration {
 
     func prepare(on database: Database) async throws {
         try await database.schema(YandexForm.schema)
-            .field("created_at", .string, .sql(.default(Date.now.ISO8601Format())))
+            .field("created_at", .string, .sql(.default(Date().ISO8601Format())))
             .update()
     }
 
