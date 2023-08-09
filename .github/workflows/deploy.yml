@@ -43,5 +43,6 @@ jobs:
             DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
             # end of envfile
             EOF
+            swift package update
             swift build -c release
             systemctl restart japit
