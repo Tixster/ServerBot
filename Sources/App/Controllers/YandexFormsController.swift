@@ -42,21 +42,25 @@ final class YandexFormsController: RouteCollection {
    }
     
     func postHandler(_ req: Request) async throws -> HTTPStatus {
-        guard let formReq = try? req.content.decode(YandexFormRequest.self)
-        else {
-            let strError = req.body.string ?? "No string data"
-            req.logger.critical(Logger.Message(stringLiteral: strError))
-            throw Abort(.internalServerError)
+        do {
+            let formReq = try req.content.decode(YandexFormRequest.self)
+            let form: YandexForm = .init(request: formReq)
+            try await form.save(on: req.db)
+
+            if let data = try? JSONEncoder().encode(form) {
+                sockets = sockets.filter({ !$0.isClosed })
+                sockets.forEach({ $0.send(raw: data, opcode: .binary) })
+            }
+
+            return .ok
+        } catch {
+            if req.body.string == nil {
+                req.logger.critical(Logger.Message(stringLiteral: error.localizedDescription))
+                throw Abort(.internalServerError, reason: error.localizedDescription)
+            }
+            throw error
         }
-        let form: YandexForm = .init(request: formReq)
-        try await form.save(on: req.db)
-        
-        if let data = try? JSONEncoder().encode(form) {
-            sockets = sockets.filter({ !$0.isClosed })
-            sockets.forEach({ $0.send(raw: data, opcode: .binary) })
-        }
-        
-        return .ok
+
     }
     
     func getAllHandler(_ req: Request) async throws -> [YandexForm] {
