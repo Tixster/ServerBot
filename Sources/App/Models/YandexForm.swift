@@ -30,7 +30,7 @@ final class YandexForm: Model, Content {
     @Field(key: "ourWokrRead") var ourWokrRead: String
     @Field(key: "reasonTo") var reasonTo: String
     @Field(key: "reasonFrom") var reasonFrom: String
-    @Timestamp(key: "created_at", on: .create, format: .iso8601) var date: Date?
+    @Timestamp(key: "created_at", on: .create, format: .iso8601) var createDate: Date?
 
     @Field(key: "editorTest") var editorTest: String
     @Field(key: "translatorEnTest") var translatorEnTest: String
