@@ -46,9 +46,18 @@ struct CreateYandexFormMigration: AsyncMigration {
 
 struct CreateYandexFormMigration2: AsyncMigration {
 
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = .init(identifier: .iso8601)
+        formatter.locale = .current
+        formatter.timeZone = .current
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        return formatter
+    }()
+
     func prepare(on database: Database) async throws {
         try await database.schema(YandexForm.schema)
-            .field("created_at", .string, .sql(.default(Date().ISO8601Format())))
+            .field("created_at", .string, .sql(.default(Self.dateFormatter.string(from: Date()))))
             .update()
     }
 
