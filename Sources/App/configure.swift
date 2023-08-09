@@ -16,6 +16,7 @@ public func configure(_ app: Application) throws {
     ), as: .psql)
     
     app.migrations.add(CreateYandexFormMigration())
+    app.migrations.add(CreateYandexFormMigration2())
     
     try app.autoMigrate().wait()
 
