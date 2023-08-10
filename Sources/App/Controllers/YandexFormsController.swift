@@ -37,7 +37,7 @@ final class YandexFormsController: RouteCollection {
             let form: YandexForm = .init(request: formReq)
             try await form.save(on: req.db)
             let url = Environment.get("DISCORD_ADMIN_WEBHOOK") ?? ""
-            let resonse = try? await req.client.post(.init(string: url),
+            let _ = try? await req.client.post(.init(string: url),
                                        headers: .init([("Content-Type", "application/json")]),
                                        beforeSend: { reqBefore in
                 try reqBefore.content.encode(DiscordWebhook(response: form))

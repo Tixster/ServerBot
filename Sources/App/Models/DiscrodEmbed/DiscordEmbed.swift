@@ -46,9 +46,9 @@ extension DiscordWebhook {
         let discord = "**Discord:**\n" + form.discord + "\n"
         let timeWork = "**Готов работать часов в неделю:**\n" + form.timeWork + "\n"
         let exampleWork = "**Пример работы:**\n" + form.exampleWork + "\n"
-        let genres = "**Предпочитаемые жанры:**\n" + form.gender + "\n"
+        let genres = "**Предпочитаемые жанры:**\n" + form.genres + "\n"
         let from = "**Как узнали о нас?:**\n" + form.from + "\n"
-        let reasonFrom = "**Почему ушли из прошлой команды?:** " + form.reasonFrom + "\n"
+        let reasonFrom = "**Почему ушли из прошлой команды?:\n** " + form.reasonFrom + "\n"
         return gender + age + timeZone + email + telegram + discord + timeWork + exampleWork + genres + from + reasonFrom
     }
 
