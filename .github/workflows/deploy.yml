@@ -41,6 +41,7 @@ jobs:
             DATABASE_NAME=${{ secrets.DATABASE_NAME }}
             DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}
             DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+            DISCORD_ADMIN_WEBHOOK=${{ secrets.DISCORD_ADMIN_WEBHOOK }}
             # end of envfile
             EOF
             swift build -c release

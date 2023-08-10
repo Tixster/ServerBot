@@ -8,6 +8,17 @@
 import Fluent
 import Vapor
 
+extension DateFormatter {
+    static let isoFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = .init(identifier: .iso8601)
+        formatter.locale = .current
+        formatter.timeZone = .current
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        return formatter
+    }()
+}
+
 struct CreateYandexFormMigration: AsyncMigration {
     
     func prepare(on database: Database) async throws {
@@ -46,18 +57,9 @@ struct CreateYandexFormMigration: AsyncMigration {
 
 struct CreateYandexFormMigration2: AsyncMigration {
 
-    static let formatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.calendar = .init(identifier: .iso8601)
-        formatter.locale = .current
-        formatter.timeZone = .current
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-        return formatter
-    }()
-
     func prepare(on database: Database) async throws {
         try await database.schema(YandexForm.schema)
-            .field("created_at", .string, .sql(.default(Self.formatter.string(from: Date()))))
+            .field("created_at", .string, .sql(.default(DateFormatter.isoFormatter.string(from: Date()))))
             .update()
     }
 
