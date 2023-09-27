@@ -97,7 +97,7 @@ struct YandexFormRequest: Content {
         case timeZone = "Часовой пояс"
         case email = "Ваш email"
         case telegram = "Ссылка на ваш профиль в Telegram"
-        case discord = "Ваш логин Discord в формате «Name#????»"
+        case discord = "Ваш логин Discord"
         case timeWork = "Сколько часов в неделю готовы уделять работе?"
         case teamRole = "Роль в команде"
         case experience = "Опыт"
